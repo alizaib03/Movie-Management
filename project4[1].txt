@@ -1,0 +1,229 @@
+package ca.centennail.assigns;
+import java.util.*;
+
+	public class Project4 {//name of the class groupProject
+		//method for listing movies
+		public static void list(String movieName2[],int movieCounter2) {
+			int loop1;//defined variables
+			for(loop1=0;loop1<=movieCounter2;loop1++)//for loop for list
+			
+				System.out.printf("%d. %s\n",loop1+1, movieName2[loop1]);//printing list
+			
+		}//method for add movie
+		public static String[] add(String movieName1[],int movieCounter1) {
+			System.out.print("Enter Movie name\n");//prompt user for movie name
+			int sum=movieCounter1+1;//incrementing index
+			Scanner input=new Scanner(System.in);//scanner 
+			movieName1[sum]=input.nextLine();//capturing input for movie name
+			return(movieName1);//returns results
+		}//method for delete movie
+		
+	public static String[] modify(String movieName1[],int movieCounter1) {
+		int numberOne,loop;//define variables
+		Scanner input=new Scanner(System.in);//new scanner 
+		list(movieName1,movieCounter1);//call list
+		loop=0;//initailizing
+		while(loop==0) {//this loop is used to check numberOne is >0 and <movieCounter1
+		System.out.print("Which movie you want to modify. Choose its number\n");
+		numberOne=input.nextInt();//put number to numberOne
+		input.nextLine();//change to string type scanner
+		if(numberOne>0 && numberOne-1<=movieCounter1) {//if number between the length of arraly
+		System.out.print("Enter the new movie name\n");//enter movie name
+		
+		movieName1[numberOne-1]=input.nextLine();//put movie in right position
+		loop++;
+		}
+		else {
+			System.out.print("Wrong choice\n");//ask for right number
+		}
+		}
+		return(movieName1);//return results.
+		}
+	//module delete 
+	public static String[] delete(String movieName1[],int movieCounter1) {
+		//variable deceleration
+		int loop1,numberOne,loop2;
+		Scanner input=new Scanner(System.in);//start new scanner 
+		list(movieName1,movieCounter1);
+		loop2=0;
+		while(loop2==0) {// while loop for checking right choice
+		System.out.print("Which movie you want to delete. Choose its number\n");//user prompt
+		numberOne=input.nextInt();//capturing user choice
+		if(numberOne>0 && numberOne-1<=movieCounter1) {//this condition ensures right choice
+		for(loop1=numberOne-1;loop1<movieCounter1;loop1++) {//loop for delete
+			movieName1[loop1]=movieName1[loop1+1];//this moves index down to shift movies down the number 
+			}
+		loop2++;//loop for right choice check
+		}
+		else {//if wrong choice
+			System.out.print("Wrong choice\n");//user prompt
+		}
+		}
+		return(movieName1);//returns this result
+	}
+	
+	//this method is for searching in list movies
+	public static void search(String movieName1[],int movieCounter1) {
+		System.out.print("Search the name of the movie which you want to search here\n");//user prompt
+		Scanner input=new Scanner(System.in);
+		//variables deceleration
+		int loop1,count1=0,count2,loop2;
+		//creating string for toknisation
+		String tokenOne=" ";
+		
+		String movieName=input.nextLine();//capturing string to search
+		//loop 1 to count No of tokens in each movie
+		for(loop1=0;loop1<=movieCounter1;loop1++) {
+			StringTokenizer searchOne=new StringTokenizer(movieName1[loop1],tokenOne);
+			//count2 = no of words in each movie
+			count2=searchOne.countTokens();
+			//loop2 run till no of words in each movie
+			for(loop2=0;loop2<count2;loop2++) {
+			//if token == user input	
+			if(searchOne.nextToken().equals(movieName)) {
+				System.out.printf("%s\n",movieName1[loop1]);//if movie match than print
+				count1=1;// count1 to record movie match
+				break;
+			}
+			}
+		}
+		//if movie did not match
+		if(count1!=1)
+			System.out.print("We dont have it. Sorry . You can try again later\n");//print we dont have it 
+		
+	}//module ends
+
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			//initializing variables 
+			int selectNum,firstLoop,continu=0,movieCounter,password=0,exit=0,counter=2;
+			String finalAsk,userOne;//final ask for yes or no question
+			//array for user name
+			String[] userName={"anmol","rizwan","ali", "helen"};
+			movieCounter=5;//counter for movie array
+			int userLoop,userLoop1;//for loop movie array
+			String[] movieName= new String[1000];
+			movieName[ 0 ] = "the last of us";//movie index for array
+			movieName[ 1 ] = "spiderman 2";
+			movieName[ 2 ] = "avangers";
+			movieName[ 3 ] = "iron man";
+			movieName[ 4 ] = "super man";
+			movieName[ 5 ] = "x men";
+
+			
+	Scanner inputs=new Scanner(System.in);//scanner for integers
+	Scanner input=new Scanner(System.in);//scanner for strings
+	userLoop=0;
+	while(userLoop<3) {//loop for user name limit to only 3 attempts
+		System.out.print("Please enter username :");//prompt user for  login
+		userOne=input.nextLine();//capture login user name
+		for(userLoop1=0;userLoop1<=3;userLoop1++) {//check for all users
+			if(userOne.equals(userName[userLoop1])) {//if check matched 
+				userLoop=4;//user loop is plus 1
+				password++;//password is plus 1
+				firstLoop=0;
+				while(firstLoop<=0) {//Loop for option selection
+					if(continu==0)//as long as continue equals zero the menu will be displayed
+					{
+	System.out.print("1.	List movies.\r\n"
+			+ "2.	Add a movie.\r\n"
+			+ "3.	Delete a movie.\r\n"
+			+ "4.	Modify a movie.\r\n"
+			+ "5.	Search a movie (through a keyword).\r\n"
+			+ "6.	Exit. \r\n"
+			+ "Select any option from 1 to 6 only \r\n");
+
+		selectNum=inputs.nextInt();//to capture the selection
+		if(selectNum>0 && selectNum<7)//as long it is less than 7 and greater than 0 than swtich will work
+		{
+			//switch cases
+			switch(selectNum) {
+			//if 1 is selected
+			case 1:{
+				System.out.print("List is :\n");
+				list(movieName,movieCounter);//calling list method
+				break;
+			}
+			//if 2 is selected
+			case 2:{
+				
+						movieName=add(movieName,movieCounter);//calling add method 
+						movieCounter++; //this increases index of array
+						System.out.print("movie has been added\n");
+				break;
+				}
+			//if case 3 is selected
+			case 3:{
+				
+						movieName=delete(movieName,movieCounter);//calling delete method
+						movieCounter--;//this decreases index of array
+						System.out.print("movie has been deleted\n");
+				break;
+			}
+			//if 4 is selected
+			case 4:{
+				
+						movieName=modify(movieName,movieCounter);// calling modify method
+						System.out.print("movie has been modified\n");
+				break;
+				}
+			//if 5 is selected
+			case 5:{
+				search(movieName,movieCounter);// calling search method
+				break;
+			}
+			//if 6 is selected
+			case 6:{
+				System.out.printf("Have a good day "+userName[userLoop1]+ " \n");//exit statement
+				exit=1; //if exit==1 than it will skip asking again to try.
+				break;
+				
+			}
+			}
+		}
+		else
+			System.out.print("Wrong choice. Plz choose number btw 1 to 6\n");//if wrong choice is made
+		
+		}
+		//if exit ==0 ask user try to again.
+		if(exit==0) {
+	System.out.print("Do you want to try again (yes/no)\n");
+	finalAsk=input.nextLine();
+	//if ans is yes
+	if(finalAsk.equals("yes"))
+	{
+		firstLoop=0;//will run loop for option selection again
+		continu=0;// will redisplay the menu
+	}
+	//if ans is no
+	else if(finalAsk.equals("no")) {
+		firstLoop++;//this will terminate loop for option selection
+		System.out.printf("Have a good day "+userName[userLoop1]+ " \n");
+	}
+	//if ans is something else
+	else //if the wrong choice is made the continue will equal to 1 skipping the menu part
+	{
+		continu=1;//if continue 1- then prints out wrong choice
+		System.out.print("Wrong Choice. Plz Choose yes or no only\n");
+		firstLoop=0;//then it will try again
+	}
+		}
+		else {
+			firstLoop++;//this will work only if user selected 6.exit
+		}	
+	}
+			}
+			
+	}//userLoop1 end
+		
+		//when password is wrong this will work
+		if(counter>0 && password==0) {
+		System.out.printf("Only %d attempts left\n",counter);
+		//no of attempts will decrease if password is wrong
+		counter--;
+		}
+		userLoop++;// it is counting no of attempts
+	}	
+	}
+}
+
